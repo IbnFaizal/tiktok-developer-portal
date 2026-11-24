@@ -34,10 +34,10 @@ Template website statis HTTPS menggunakan **GitHub Pages** untuk memenuhi kebutu
    - **Branch**: `main` / `/ (root)`
    - Klik **Save**.
 4. Tunggu 1–2 menit hingga URL aktif:
-   - **Website URL**: `https://USERNAME.github.io/REPO_NAME/`
-   - **Privacy Policy URL**: `https://USERNAME.github.io/REPO_NAME/privacy.html`
-   - **Terms of Service URL**: `https://USERNAME.github.io/REPO_NAME/terms.html`
-   - **Redirect URI**: `https://USERNAME.github.io/REPO_NAME/callback.html`
+   - **Website URL**: `https://IbnFaizal.github.io/tiktok-developer-portal/`
+   - **Privacy Policy URL**: `https://IbnFaizal.github.io/tiktok-developer-portal/privacy.html`
+   - **Terms of Service URL**: `https://IbnFaizal.github.io/tiktok-developer-portal/terms.html`
+   - **Redirect URI**: `https://IbnFaizal.github.io/tiktok-developer-portal/callback.html`
 
 ## Verifikasi Domain TikTok (Jika Diminta)
 
