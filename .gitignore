@@ -1,0 +1,14 @@
+# Jangan pernah commit file sensitif ke repository publik GitHub Pages ini
+.env
+.env.*
+*.key
+*.pem
+*.secret
+secrets/
+private/
+
+# OS & editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

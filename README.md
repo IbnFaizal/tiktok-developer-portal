@@ -1,48 +1,37 @@
-# TikTok Developer Pages (GitHub Pages)
+# TikTok Developer Portal (GitHub Pages)
 
-Template website statis HTTPS menggunakan **GitHub Pages** untuk memenuhi kebutuhan URL saat mendaftarkan aplikasi di [TikTok for Developers](https://developers.tiktok.com/).
+Repository **Public** untuk menyajikan URL HTTPS statis yang dibutuhkan oleh [TikTok for Developers](https://developers.tiktok.com/).
 
-## File yang Tersedia
+## Struktur Folder
 
-- `index.html` — Halaman utama aplikasi (**Website / App URL**)
-- `privacy.html` — Halaman **Privacy Policy URL**
-- `terms.html` — Halaman **Terms of Service URL**
-- `callback.html` — Halaman **OAuth Redirect URI** (otomatis menampilkan `code`, `state`, dan `scopes`)
-- `styles.css` — Styling responsif
-- `.nojekyll` — Agar GitHub Pages menyajikan file statis apa adanya
+```text
+tiktok-dev-pages/
+├── .gitignore
+├── .nojekyll
+├── README.md
+├── index.html                                          # Website / App URL
+├── styles.css                                          # Stylesheet utama
+├── terms.html                                          # Terms of Service URL
+├── callback.html                                       # OAuth 2.0 Redirect URI
+├── tiktokH9ltPPSwpZbvhvgwqD3JwT8N6Kx7f7UC.txt          # Verifikasi domain root
+└── privacy.html/
+    ├── index.html                                      # Privacy Policy URL
+    └── tiktokH9ltPPSwpZbvhvgwqD3JwT8N6Kx7f7UC.txt      # Verifikasi prefix privacy.html/
+```
 
-## Cara Menyesuaikan Sebelum Upload
+## Pembagian Public vs Private
 
-1. Ganti `MyApp` dengan nama aplikasi Anda di semua file `.html`.
-2. Ganti `developer@example.com` dengan email kontak Anda yang aktif.
-3. Ganti `USERNAME` dan `REPO_NAME` di `index.html` sesuai akun dan nama repository GitHub Anda.
+### 1. Yang HARUS di Public (Repository GitHub Pages ini)
+Seluruh file di repo ini memang dirancang untuk diakses publik oleh server TikTok dan pengguna:
+- `index.html` — `https://ibnfaizal.github.io/tiktok-developer-portal/`
+- `privacy.html/` — `https://ibnfaizal.github.io/tiktok-developer-portal/privacy.html/`
+- `terms.html` — `https://ibnfaizal.github.io/tiktok-developer-portal/terms.html`
+- `callback.html` — `https://ibnfaizal.github.io/tiktok-developer-portal/callback.html` *(aman di publik karena hanya membaca `code` dari URL browser, tanpa menyimpan secret)*
+- `tiktok*.txt` — File verifikasi kepemilikan URL untuk TikTok
 
-## Cara Deploy ke GitHub Pages (Gratis & HTTPS)
-
-1. Buat repository baru di GitHub (misalnya: `tiktok-dev-pages`), set **Public**.
-2. Upload atau push seluruh isi folder ini ke branch `main`:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial TikTok Developer Pages"
-   git branch -M main
-   git remote add origin https://github.com/USERNAME/REPO_NAME.git
-   git push -u origin main
-   ```
-3. Buka **Settings → Pages** di repository GitHub Anda:
-   - **Source**: `Deploy from a branch`
-   - **Branch**: `main` / `/ (root)`
-   - Klik **Save**.
-4. Tunggu 1–2 menit hingga URL aktif:
-   - **Website URL**: `https://IbnFaizal.github.io/tiktok-developer-portal/`
-   - **Privacy Policy URL**: `https://IbnFaizal.github.io/tiktok-developer-portal/privacy.html`
-   - **Terms of Service URL**: `https://IbnFaizal.github.io/tiktok-developer-portal/terms.html`
-   - **Redirect URI**: `https://IbnFaizal.github.io/tiktok-developer-portal/callback.html`
-
-## Verifikasi Domain TikTok (Jika Diminta)
-
-Jika TikTok Developer Portal meminta verifikasi domain dengan file `.txt` (misalnya `tiktokXXXXXXXX.txt`):
-
-1. Download file `.txt` dari dashboard TikTok for Developers.
-2. Letakkan file tersebut di folder root repository ini (sejajar dengan `index.html`).
-3. Commit dan push ke GitHub, lalu klik **Verify** di dashboard TikTok.
+### 2. Yang HARUS di Private (JANGAN taruh di repo ini!)
+Simpan di **repository Private terpisah** atau **server/backend pribadi** Anda:
+- `CLIENT_SECRET` dari TikTok Developer Portal
+- `access_token` dan `refresh_token` pengguna
+- File `.env`, kredensial API, atau database
+- Backend service yang menukar `authorization code` menjadi `access_token`
