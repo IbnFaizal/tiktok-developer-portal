@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OAuth Callback — MyApp</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-row">
+      <a class="brand" href="index.html">MyApp</a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="callback.html" class="active">OAuth Callback</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container prose-wrapper">
+    <section class="card prose">
+      <h1>TikTok OAuth Callback</h1>
+      <p>
+        Halaman ini digunakan sebagai <strong>Redirect URI</strong> untuk menerima hasil otorisasi
+        OAuth 2.0 dari TikTok.
+      </p>
+
+      <div id="status-box" class="status-box">
+        Menunggu parameter otorisasi dari URL...
+      </div>
+
+      <div id="result-fields" class="result-fields" hidden>
+        <div class="field-group">
+          <label for="auth-code">Authorization Code</label>
+          <div class="copy-row">
+            <input id="auth-code" type="text" readonly />
+            <button type="button" class="btn primary" id="copy-code">Salin</button>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="auth-state">State</label>
+          <input id="auth-state" type="text" readonly />
+        </div>
+
+        <div class="field-group">
+          <label for="auth-scopes">Scopes</label>
+          <input id="auth-scopes" type="text" readonly />
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <span>&copy; 2026 MyApp. All rights reserved.</span>
+      <div class="footer-links">
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const code = params.get("code");
+      const state = params.get("state");
+      const scopes = params.get("scopes");
+      const error = params.get("error");
+      const errorDesc = params.get("error_description");
+
+      const statusBox = document.getElementById("status-box");
+      const resultFields = document.getElementById("result-fields");
+
+      if (error) {
+        statusBox.classList.add("error");
+        statusBox.textContent = "Otorisasi gagal: " + error + (errorDesc ? " — " + errorDesc : "");
+        return;
+      }
+
+      if (code) {
+        statusBox.classList.add("success");
+        statusBox.textContent = "Otorisasi berhasil! Salin authorization code di bawah ini untuk ditukar menjadi access token.";
+        document.getElementById("auth-code").value = code;
+        document.getElementById("auth-state").value = state || "-";
+        document.getElementById("auth-scopes").value = scopes || "-";
+        resultFields.hidden = false;
+
+        document.getElementById("copy-code").addEventListener("click", function () {
+          navigator.clipboard.writeText(code).then(() => {
+            this.textContent = "Tersalin!";
+            setTimeout(() => { this.textContent = "Salin"; }, 1500);
+          });
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
